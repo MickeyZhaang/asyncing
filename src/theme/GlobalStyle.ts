@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components'
+import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyle = createGlobalStyle`
   @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&display=swap');
@@ -6,4 +6,4 @@ export const GlobalStyle = createGlobalStyle`
   * { box-sizing: border-box; }
   body { margin: 0; }
   button { color: inherit; font: inherit; }
-`
+`;

@@ -22,4 +22,6 @@ order: 2
 # A chapter title
 ```
 
+Copy [`src/content/_template.md`](src/content/_template.md) to start a chapter. Markdown files whose filename begins with `_` are excluded from the textbook.
+
 The custom renderer currently supports headings, paragraphs, blockquotes, ordered and unordered lists, horizontal rules, fenced code blocks, bold, emphasis, inline code, and links.

@@ -31,7 +31,7 @@ function firstHeading(source: string) {
   return source.match(/^#\s+(.+)$/m)?.[1].trim();
 }
 
-const files = import.meta.glob<string>("./content/**/*.md", {
+const files = import.meta.glob<string>(["./content/**/*.md", "!./content/**/_*.md"], {
   eager: true,
   query: "?raw",
   import: "default",

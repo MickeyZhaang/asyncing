@@ -109,7 +109,7 @@ export function TextbookSidebar({
       {isOpen && <Overlay aria-label="Close chapters" onClick={onClose} />}
       <Sidebar $open={isOpen} id="textbook-sidebar">
         <Wordmark href="/">ASYNCING</Wordmark>
-        <Label>Book</Label>
+        <Label>Navigate...</Label>
         <Navigation aria-label="Chapters">
           {chapters.map((chapter, index) => (
             <ChapterButton

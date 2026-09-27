@@ -5,7 +5,7 @@ const Element = styled.h1`
   font-weight: 500;
   letter-spacing: -0.035em;
   line-height: 1.06;
-  margin: 2.5em 0 0.35em;
+  margin: 1.75em 0 0.35em;
   &[data-depth='1'] {
     font-size: clamp(3.1rem, 7vw, 5.4rem);
     margin-top: 0;

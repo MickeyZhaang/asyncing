@@ -62,19 +62,21 @@ const Label = styled.p`
 const Navigation = styled.nav`
   display: grid;
   gap: 0.2rem;
+  margin-right: -2rem;
 `;
 
 const ChapterButton = styled.button<{ $active: boolean }>`
   background: ${({ $active, theme }) =>
     $active ? theme.color.selected : 'none'};
   border: 0;
-  border-radius: 0.2rem;
+  border-radius: ${({ $active }) =>
+    $active ? '0.2rem 0 0 0.2rem' : '0.2rem'};
   cursor: pointer;
   display: grid;
   font-size: 1.04rem;
   gap: 0.8rem;
   grid-template-columns: 1.5rem 1fr;
-  padding: 0.55rem 0.45rem;
+  padding: 0.65rem 0.45rem 0.55rem;
   text-align: left;
 
   &:hover {
@@ -83,10 +85,11 @@ const ChapterButton = styled.button<{ $active: boolean }>`
 `;
 
 const ChapterNumber = styled.span`
+  display: block;
   color: ${({ theme }) => theme.color.mutedLight};
   font-family: ${({ theme }) => theme.font.mono};
   font-size: 0.65rem;
-  padding-top: 0.35rem;
+  text-align: center;
 `;
 
 type TextbookSidebarProps = {

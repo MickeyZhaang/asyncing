@@ -6,8 +6,18 @@ import { List } from './markdown/blocks/list/List';
 import { Paragraph } from './markdown/blocks/paragraph/Paragraph';
 import { Quote } from './markdown/blocks/quote/Quote';
 import { Rule } from './markdown/blocks/rule/Rule';
-import { InlineCode, Link } from './markdown/inline/InlineElements';
+import { Arrow, InlineCode, Link } from './markdown/inline/InlineElements';
 import { parseBlocks } from './markdown/parser';
+
+function prose(value: string): ReactNode[] {
+  return value
+    .replace(/(?<!-)--(?!-)/g, '—')
+    .replace(/->/g, '→')
+    .split('→')
+    .flatMap((piece, index) =>
+      index === 0 ? [piece] : [<Arrow key={index}>→</Arrow>, piece],
+    );
+}
 
 function inline(value: string): ReactNode[] {
   const pattern = /(\*\*[^*]+\*\*|\*[^*]+\*|`[^`]+`|\[[^\]]+\]\([^\s)]+\))/g;
@@ -16,19 +26,19 @@ function inline(value: string): ReactNode[] {
     .filter(Boolean)
     .map((piece, index) => {
       if (piece.startsWith('**'))
-        return <strong key={index}>{piece.slice(2, -2)}</strong>;
+        return <strong key={index}>{prose(piece.slice(2, -2))}</strong>;
       if (piece.startsWith('*'))
-        return <em key={index}>{piece.slice(1, -1)}</em>;
+        return <em key={index}>{prose(piece.slice(1, -1))}</em>;
       if (piece.startsWith('`'))
         return <InlineCode key={index}>{piece.slice(1, -1)}</InlineCode>;
       const link = piece.match(/^\[([^\]]+)\]\(([^\s)]+)\)$/);
       if (link)
         return (
           <Link key={index} href={link[2]} target="_blank" rel="noreferrer">
-            {link[1]}
+            {prose(link[1])}
           </Link>
         );
-      return piece;
+      return prose(piece);
     });
 }
 

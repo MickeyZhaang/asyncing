@@ -12,3 +12,8 @@ export const Link = styled.a`
   text-decoration-thickness: 1px;
   text-underline-offset: 0.16em;
 `;
+
+export const Arrow = styled.span`
+  display: inline-block;
+  transform: translateY(0.08em);
+`;

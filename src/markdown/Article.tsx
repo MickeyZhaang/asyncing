@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { styled } from '../theme';
+import { styled } from '@asyncing/styled';
 
 const Container = styled.article`
   font-size: 1.24rem;

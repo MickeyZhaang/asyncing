@@ -1,4 +1,4 @@
-import { styled } from '../../../theme';
+import { styled } from '@asyncing/styled';
 
 const Element = styled.hr`
   border: 0;

@@ -1,5 +1,5 @@
 import type { Chapter } from '../chapters';
-import { styled } from '../theme';
+import { styled } from '@asyncing/styled';
 
 const Overlay = styled.button`
   background: rgba(36, 34, 30, 0.22);
@@ -69,8 +69,7 @@ const ChapterButton = styled.button<{ $active: boolean }>`
   background: ${({ $active, theme }) =>
     $active ? theme.color.selected : 'none'};
   border: 0;
-  border-radius: ${({ $active }) =>
-    $active ? '0.2rem 0 0 0.2rem' : '0.2rem'};
+  border-radius: ${({ $active }) => ($active ? '0.2rem 0 0 0.2rem' : '0.2rem')};
   cursor: pointer;
   display: grid;
   font-size: 1.04rem;

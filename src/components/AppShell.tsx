@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { styled } from '../theme';
+import { styled } from '@asyncing/styled';
 
 const Shell = styled.div`
   display: grid;

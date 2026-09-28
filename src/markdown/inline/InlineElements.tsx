@@ -1,4 +1,4 @@
-import { styled } from '../../theme';
+import { styled } from '@asyncing/styled';
 
 export const InlineCode = styled.code`
   background: ${({ theme }) => theme.color.inlineCode};

@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { styled } from '../../../theme';
+import { styled } from '@asyncing/styled';
 
 const Element = styled.blockquote`
   border-left: 2px solid ${({ theme }) => theme.color.quote};

@@ -1,6 +1,6 @@
 import type { Chapter } from '../chapters';
 import { Markdown } from '../Markdown';
-import { styled } from '../theme';
+import { styled } from '@asyncing/styled';
 
 const Reader = styled.main`
   margin: 0 auto;

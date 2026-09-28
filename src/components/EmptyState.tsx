@@ -1,4 +1,4 @@
-import { styled } from '../theme';
+import { styled } from '@asyncing/styled';
 
 const Container = styled.main`
   align-items: center;

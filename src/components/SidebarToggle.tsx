@@ -1,4 +1,4 @@
-import { styled } from '../theme';
+import { styled } from '@asyncing/styled';
 
 const Button = styled.button<{ $open: boolean }>`
   align-items: center;

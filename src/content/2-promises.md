@@ -8,7 +8,5 @@ order: 2
 > A promise is merely a placement value for something that will come...
 
 ```js
-const promise = new Promise((resolve, reject) => {
-    ...
-});
+const promise = new Promise(callback);
 ```

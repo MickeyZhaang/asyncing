@@ -66,6 +66,7 @@ const Navigation = styled.nav`
 `;
 
 const ChapterButton = styled.button<{ $active: boolean }>`
+  align-items: center;
   background: ${({ $active, theme }) =>
     $active ? theme.color.selected : 'none'};
   border: 0;

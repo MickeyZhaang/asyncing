@@ -8,6 +8,7 @@ import { Quote } from './markdown/blocks/quote/Quote';
 import { Rule } from './markdown/blocks/rule/Rule';
 import { Arrow, InlineCode, Link } from './markdown/inline/InlineElements';
 import { parseBlocks } from './markdown/parser';
+import { parseInline } from './markdown/inline/parse';
 
 function prose(value: string): ReactNode[] {
   return value
@@ -20,29 +21,24 @@ function prose(value: string): ReactNode[] {
 }
 
 function inline(value: string): ReactNode[] {
-  const pattern =
-    /(\*\*[^*]+\*\*|\*[^*]+\*|(?<![\w_])_[^_]+_(?![\w_])|`[^`]+`|\[[^\]]+\]\([^\s)]+\))/g;
-  return value
-    .split(pattern)
-    .filter(Boolean)
-    .map((piece, index) => {
-      if (piece.startsWith('**'))
-        return <strong key={index}>{prose(piece.slice(2, -2))}</strong>;
-      if (piece.startsWith('*'))
-        return <em key={index}>{prose(piece.slice(1, -1))}</em>;
-      if (piece.startsWith('_'))
-        return <em key={index}>{prose(piece.slice(1, -1))}</em>;
-      if (piece.startsWith('`'))
-        return <InlineCode key={index}>{piece.slice(1, -1)}</InlineCode>;
-      const link = piece.match(/^\[([^\]]+)\]\(([^\s)]+)\)$/);
-      if (link)
+  return parseInline(value).map((token, index) => {
+    switch (token.type) {
+      case 'strong':
+        return <strong key={index}>{prose(token.value)}</strong>;
+      case 'emphasis':
+        return <em key={index}>{prose(token.value)}</em>;
+      case 'code':
+        return <InlineCode key={index}>{token.value}</InlineCode>;
+      case 'link':
         return (
-          <Link key={index} href={link[2]} target="_blank" rel="noreferrer">
-            {prose(link[1])}
+          <Link key={index} href={token.href} target="_blank" rel="noreferrer">
+            {prose(token.label)}
           </Link>
         );
-      return prose(piece);
-    });
+      case 'text':
+        return prose(token.value);
+    }
+  });
 }
 
 export function Markdown({ source }: { source: string }) {

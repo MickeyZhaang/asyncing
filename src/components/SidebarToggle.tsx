@@ -1,3 +1,4 @@
+import { forwardRef } from 'react';
 import { styled } from '@asyncing/styled';
 
 const Button = styled.button<{ $open: boolean }>`
@@ -46,18 +47,21 @@ type SidebarToggleProps = {
   onClick: () => void;
 };
 
-export function SidebarToggle({ isOpen, onClick }: SidebarToggleProps) {
-  return (
-    <Button
-      $open={isOpen}
-      aria-controls="textbook-sidebar"
-      aria-expanded={isOpen}
-      aria-label={isOpen ? 'Close chapters' : 'Open chapters'}
-      onClick={onClick}
-    >
-      <span />
-      <span />
-      <span />
-    </Button>
-  );
-}
+export const SidebarToggle = forwardRef<HTMLButtonElement, SidebarToggleProps>(
+  function SidebarToggle({ isOpen, onClick }, ref) {
+    return (
+      <Button
+        $open={isOpen}
+        aria-controls="textbook-sidebar"
+        aria-expanded={isOpen}
+        aria-label={isOpen ? 'Close chapters' : 'Open chapters'}
+        onClick={onClick}
+        ref={ref}
+      >
+        <span />
+        <span />
+        <span />
+      </Button>
+    );
+  },
+);

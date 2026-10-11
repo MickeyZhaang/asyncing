@@ -20,7 +20,8 @@ function prose(value: string): ReactNode[] {
 }
 
 function inline(value: string): ReactNode[] {
-  const pattern = /(\*\*[^*]+\*\*|\*[^*]+\*|`[^`]+`|\[[^\]]+\]\([^\s)]+\))/g;
+  const pattern =
+    /(\*\*[^*]+\*\*|\*[^*]+\*|(?<![\w_])_[^_]+_(?![\w_])|`[^`]+`|\[[^\]]+\]\([^\s)]+\))/g;
   return value
     .split(pattern)
     .filter(Boolean)
@@ -28,6 +29,8 @@ function inline(value: string): ReactNode[] {
       if (piece.startsWith('**'))
         return <strong key={index}>{prose(piece.slice(2, -2))}</strong>;
       if (piece.startsWith('*'))
+        return <em key={index}>{prose(piece.slice(1, -1))}</em>;
+      if (piece.startsWith('_'))
         return <em key={index}>{prose(piece.slice(1, -1))}</em>;
       if (piece.startsWith('`'))
         return <InlineCode key={index}>{piece.slice(1, -1)}</InlineCode>;

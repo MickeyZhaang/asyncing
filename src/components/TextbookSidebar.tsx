@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react';
 import type { Chapter } from '../chapters';
 import { styled } from '@asyncing/styled';
 
@@ -35,6 +36,7 @@ const Sidebar = styled.aside<{ $open: boolean }>`
       box-shadow 180ms ease,
       transform 180ms ease;
     width: min(19rem, calc(100vw - 3rem));
+    visibility: ${({ $open }) => ($open ? 'visible' : 'hidden')};
     z-index: 25;
   }
 `;
@@ -107,18 +109,36 @@ export function TextbookSidebar({
   onChapterChange,
   onClose,
 }: TextbookSidebarProps) {
+  const activeChapterRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    if (isOpen) activeChapterRef.current?.focus();
+  }, [isOpen]);
+
   return (
     <>
       {isOpen && <Overlay aria-label="Close chapters" onClick={onClose} />}
-      <Sidebar $open={isOpen} id="textbook-sidebar">
-        <Wordmark href="/">ASYNCING</Wordmark>
+      <Sidebar
+        $open={isOpen}
+        aria-label={isOpen ? 'Chapters' : undefined}
+        aria-modal={isOpen || undefined}
+        id="textbook-sidebar"
+        role={isOpen ? 'dialog' : undefined}
+      >
+        <Wordmark href="#/" onClick={() => isOpen && onClose()}>
+          ASYNCING
+        </Wordmark>
         <Label>Navigate...</Label>
         <Navigation aria-label="Chapters">
           {chapters.map((chapter, index) => (
             <ChapterButton
               $active={chapter.id === activeChapterId}
+              aria-current={chapter.id === activeChapterId ? 'page' : undefined}
               key={chapter.id}
               onClick={() => onChapterChange(chapter.id)}
+              ref={
+                chapter.id === activeChapterId ? activeChapterRef : undefined
+              }
             >
               <ChapterNumber>
                 {String(index + 1).padStart(2, '0')}

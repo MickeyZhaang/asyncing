@@ -1,3 +1,4 @@
+import { forwardRef } from 'react';
 import type { Chapter } from '../chapters';
 import { Markdown } from '../Markdown';
 import { styled } from '@asyncing/styled';
@@ -39,37 +40,38 @@ type ChapterReaderProps = {
   activeIndex: number;
   chapter: Chapter;
   chapters: Chapter[];
+  inert: boolean;
   onChapterChange: (id: string) => void;
 };
 
-export function ChapterReader({
-  activeIndex,
-  chapter,
-  chapters,
-  onChapterChange,
-}: ChapterReaderProps) {
-  const previousChapter = chapters[activeIndex - 1];
-  const nextChapter = chapters[activeIndex + 1];
-  return (
-    <Reader>
-      <Eyebrow>Chapter {String(activeIndex + 1).padStart(2, '0')}</Eyebrow>
-      <Markdown source={chapter.source} />
-      <Footer>
-        {previousChapter ? (
-          <ChapterLink onClick={() => onChapterChange(previousChapter.id)}>
-            ← {previousChapter.title}
-          </ChapterLink>
-        ) : (
-          <span />
-        )}
-        {nextChapter ? (
-          <ChapterLink onClick={() => onChapterChange(nextChapter.id)}>
-            {nextChapter.title} →
-          </ChapterLink>
-        ) : (
-          <span />
-        )}
-      </Footer>
-    </Reader>
-  );
-}
+export const ChapterReader = forwardRef<HTMLElement, ChapterReaderProps>(
+  function ChapterReader(
+    { activeIndex, chapter, chapters, inert, onChapterChange },
+    ref,
+  ) {
+    const previousChapter = chapters[activeIndex - 1];
+    const nextChapter = chapters[activeIndex + 1];
+    return (
+      <Reader inert={inert} ref={ref} tabIndex={-1}>
+        <Eyebrow>Chapter {String(activeIndex + 1).padStart(2, '0')}</Eyebrow>
+        <Markdown source={chapter.source} />
+        <Footer>
+          {previousChapter ? (
+            <ChapterLink onClick={() => onChapterChange(previousChapter.id)}>
+              ← {previousChapter.title}
+            </ChapterLink>
+          ) : (
+            <span />
+          )}
+          {nextChapter ? (
+            <ChapterLink onClick={() => onChapterChange(nextChapter.id)}>
+              {nextChapter.title} →
+            </ChapterLink>
+          ) : (
+            <span />
+          )}
+        </Footer>
+      </Reader>
+    );
+  },
+);

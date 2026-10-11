@@ -43,6 +43,7 @@ const files = import.meta.glob<string>(
 export const chapters: Chapter[] = Object.entries(files)
   .map(([path, source]) => {
     const { frontmatter, body } = readFrontmatter(source);
+    const order = Number(frontmatter.order);
     const fallbackTitle =
       firstHeading(body) ??
       path.split('/').pop()?.replace(/\.md$/, '') ??
@@ -50,7 +51,10 @@ export const chapters: Chapter[] = Object.entries(files)
     return {
       id: path.replace('./content/', '').replace(/\.md$/, ''),
       title: frontmatter.title ?? fallbackTitle,
-      order: Number(frontmatter.order) || Number.MAX_SAFE_INTEGER,
+      order:
+        frontmatter.order && Number.isFinite(order)
+          ? order
+          : Number.MAX_SAFE_INTEGER,
       source: body,
     };
   })

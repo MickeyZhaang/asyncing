@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import {
   Navigate,
   Route,
@@ -17,6 +17,8 @@ function Textbook() {
   const navigate = useNavigate();
   const { '*': chapterId } = useParams();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const readerRef = useRef<HTMLElement>(null);
+  const sidebarToggleRef = useRef<HTMLButtonElement>(null);
   const activeIndex = chapters.findIndex((chapter) => chapter.id === chapterId);
   const activeChapter = chapters[activeIndex];
 
@@ -26,11 +28,17 @@ function Textbook() {
       : 'Asyncing';
   }, [activeChapter]);
 
+  useLayoutEffect(() => {
+    if (activeChapter) window.scrollTo({ left: 0, top: 0 });
+  }, [activeChapter]);
+
   useEffect(() => {
     if (!isSidebarOpen) return;
 
     const closeOnEscape = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') setIsSidebarOpen(false);
+      if (event.key !== 'Escape') return;
+      setIsSidebarOpen(false);
+      sidebarToggleRef.current?.focus();
     };
 
     window.addEventListener('keydown', closeOnEscape);
@@ -43,11 +51,20 @@ function Textbook() {
   const openChapter = (id: string) => {
     navigate(`/chapters/${id}`);
     setIsSidebarOpen(false);
+    window.requestAnimationFrame(() => {
+      readerRef.current?.focus({ preventScroll: true });
+    });
+  };
+
+  const closeSidebar = () => {
+    setIsSidebarOpen(false);
+    sidebarToggleRef.current?.focus();
   };
 
   return (
     <AppShell>
       <SidebarToggle
+        ref={sidebarToggleRef}
         isOpen={isSidebarOpen}
         onClick={() => setIsSidebarOpen((isOpen) => !isOpen)}
       />
@@ -56,13 +73,15 @@ function Textbook() {
         chapters={chapters}
         isOpen={isSidebarOpen}
         onChapterChange={openChapter}
-        onClose={() => setIsSidebarOpen(false)}
+        onClose={closeSidebar}
       />
       <ChapterReader
         activeIndex={activeIndex}
         chapter={activeChapter}
         chapters={chapters}
+        inert={isSidebarOpen}
         onChapterChange={openChapter}
+        ref={readerRef}
       />
     </AppShell>
   );

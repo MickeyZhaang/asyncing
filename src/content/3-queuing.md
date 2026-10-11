@@ -7,7 +7,7 @@ order: 3
 
 ```js
 class job {
-  // at least 100 ms
+  // at nost 100 ms
   jobTime = Math.random() * 100;
 
   run() {

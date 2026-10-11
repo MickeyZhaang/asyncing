@@ -17,4 +17,16 @@ describe('parseBlocks', () => {
       },
     ]);
   });
+
+  it('quotes', () => {
+    const res = parseBlocks('> A quote.');
+    expect(res).toEqual([
+      {
+        type: 'quote',
+        value: 'A quote.',
+      },
+    ]);
+  });
+
+  
 });

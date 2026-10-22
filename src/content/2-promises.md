@@ -15,3 +15,5 @@ The promise object in JS is a state-machine: `pending` is the main state of prom
 
 - `fulfilled` state where the value has arrived
 - `rejected` every state where the value did not arrive
+
+We will continue to use arrival as terminalogy to imply the literal arrival of a value after awaiting some time.

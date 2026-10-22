@@ -9,13 +9,13 @@ Programming is cool...
 
 Fundamentally, the craft -- as I've learned it -- has involved training sequential thought processes to solve problems algorithmically.
 
-However, some of the most interesting problems presented to me have involved the idea of code that _may not run when we expect it to_, or may not be deterministically guaranteed to finish executing because its progress depends on something external to the program.
+However, some of the most interesting problems presented to me have involved the idea of code that may not run when we expect it to, or may not be deterministically guaranteed to finish executing because its progress depends on something external to the program.
 
 The most obvious example is `waiting`.
 
 > `waiting` can be thought of as delaying further action until some event has occurred.
 
-A network request has to return. A timer has to expire. A user has to click something. A file has to finish being read.
+A network request has to return. A timer has to expire. A user has to click something. A file has to finish being read. All of these tasks require some form of `waiting`.
 
 Problems like these introduce us to asynchronous programming: work whose completion does not necessarily occur as part of the program's immediate, sequential flow of execution.
 

@@ -27,4 +27,13 @@ describe('parseBlocks', () => {
       },
     ]);
   });
+
+  it.each([
+    ['---', { type: 'rule' }],
+    ['***', { type: 'rule' }],
+    ['___', { type: 'rule' }],
+    ['--', { type: 'paragraph', value: '--' }],
+  ])('appropriately parses %s', (source, expected) => {
+    expect(parseBlocks(source)).toEqual([expected]);
+  });
 });

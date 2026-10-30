@@ -32,3 +32,7 @@ const promise = new Promise((resolve, reject) => {
   resolve('done!');
 });
 ```
+
+## Chaining Promises
+
+While thinking of a promise as a simple state machine, things can get much more complicated as we introduce mutliple promise chains that all handle their own data differently.

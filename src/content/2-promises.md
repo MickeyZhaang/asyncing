@@ -33,14 +33,22 @@ const promise = new Promise(callback);
 The `callback` function structure should look something like...
 
 ```js
-const callback = (resolve, reject) => {};
+const callback = (resolve, reject) => {...};
 ```
 
 Where `resolve` and `reject` are callbacks in themselves, specifically in how we handle data being passed through the promise.
 For example, we can resolve a string that indicates we are "done" in our callback with `resolve('done!')`.
 
 ```js
-const promise = new Promise((resolve, reject) => {
+const callback = (resolve) => {
   resolve('done!');
+};
+
+const promise = new Promise(callback);
+
+promise.then((v) => {
+  console.log(v);
 });
 ```
+
+should print "done!" when ran in the terminal

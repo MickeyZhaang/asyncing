@@ -36,3 +36,5 @@ This series follows my personal journey through learning modern asynchronous Jav
 Memorizing syntax or algorithms alone doesn't really explain what is happening. The interesting part is learning to reason about execution that is no longer purely sequential: work being started, delegated, suspended, resumed, queued, and eventually continued.
 
 That shift in thinking is one of the things I find most beautiful about asynchronous programming.
+
+This book assumes that you have a Javascript environment capable of running scripts.

@@ -51,4 +51,7 @@ promise.then((v) => {
 });
 ```
 
-should print "done!" when ran in the terminal
+Should print "done!" when ran in the terminal. Notice how we had to handle the promise after its creation
+
+## Then and Catch
+
